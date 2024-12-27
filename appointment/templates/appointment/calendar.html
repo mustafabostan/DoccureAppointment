@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Calendar{% endblock title %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+    <div id="calendar"></div>
+</div>  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+    
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            events: '/calendar-events/',
+            editable: true,
+            selectable: true
+        });
+    
+        calendar.render();
+    });
+  </script>
+{% endblock content %}

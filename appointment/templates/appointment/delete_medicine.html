@@ -1,0 +1,7 @@
+<h2>{{ medicine.name }} İlacını Sil</h2>
+<p>Bu ilacı silmek istediğinizden emin misiniz?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Evet, Sil</button>
+</form>
+<a href="{% url 'medicine_list' %}">Hayır, Geri Dön</a>

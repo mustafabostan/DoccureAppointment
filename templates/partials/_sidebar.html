@@ -1,0 +1,96 @@
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-inner slimscroll">
+    <div id="sidebar-menu" class="sidebar-menu">
+      <ul>
+        {% if user.is_authenticated %} {% if user.is_doctor %}
+        <li>
+          <a href="{% url 'dashboard' %}"
+            ><i class="fe fe-home"></i> <span>Dashboard</span></a
+          >
+        </li>
+        <li class="submenu">
+          <a href="#"
+            ><i class="fe fe-layout"></i> <span>Appointments</span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li><a href="{% url 'add_appointment' %}">Add Appointment</a></li>
+            <li><a href="{% url 'appointment_list' %}">Appointment List</a></li>
+          </ul>
+        </li>
+        <li class="submenu">
+          <a href="#"
+            ><i class="fe fe-calendar"></i> <span>Calendar</span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li><a href="{% url 'calendar' %}">Calendar</a></li>
+            <li><a href="{% url 'add_calendar_block' %}">Block Calendar</a></li>
+          </ul>
+        </li>
+
+        <li class="submenu">
+          <a href="#"
+            ><i class="fe fe-user-plus"></i> <span>Secretaries</span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li><a href="{% url 'add_secretary' %}">Add Secretary</a></li>
+            <li><a href="{% url 'secretary_list' %}">Secretary List</a></li>
+          </ul>
+        </li>
+        <li class="submenu">
+          <a href="#"
+            ><i class="fe fe-user"></i> <span>Patients</span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li><a href="{% url 'add_patient' %}">Add Patient</a></li>
+            <li><a href="{% url 'patient_list' %}">Patient List</a></li>
+            <li><a href="{% url 'examination_list' %}">Patient Records</a></li>
+            <li>
+              <a href="{% url 'add_examination' %}">Add Patient Record</a>
+            </li>
+          </ul>
+        </li>
+        <li class="submenu">
+          <a href="#"
+            ><i class="fe fe-vector"></i> <span>Medicine</span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li><a href="{% url 'add_medicine' %}">Add Medicine</a></li>
+            <li><a href="{% url 'medicine_list' %}">Medicine List</a></li>
+          </ul>
+        </li>
+        {% elif user.is_secretary %}
+        <li>
+          <a href="{% url 'dashboard' %}"
+            ><i class="fe fe-home"></i> <span>Dashboard</span></a
+          >
+        </li>
+        <li class="submenu">
+          <a href="#"
+            ><i class="fe fe-layout"></i> <span>Appointments</span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li><a href="{% url 'add_appointment' %}">Add Appointment</a></li>
+            <li><a href="{% url 'appointment_list' %}">Appointment List</a></li>
+          </ul>
+        </li>
+        <li class="submenu">
+          <a href="#"
+            ><i class="fe fe-calendar"></i> <span>Calendar</span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li><a href="{% url 'calendar' %}">Calendar</a></li>
+            <li><a href="{% url 'add_calendar_block' %}">Block Calendar</a></li>
+          </ul>
+        </li>
+        {% endif %} {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>

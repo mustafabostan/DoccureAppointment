@@ -1,0 +1,38 @@
+from django.urls import path
+from django.contrib.auth import views as auth_views
+from .views import add_secretary, custom_login_view, profile_view, edit_profile_view, index, custom_logout_view, patient_list, add_patient, edit_patient, delete_patient ,examination_list, add_examination, edit_examination, delete_examination ,medicine_list, add_medicine, edit_medicine, delete_medicine, calendar_view, add_calendar_block, add_appointment, appointment_list, edit_appointment,delete_appointment,secretary_list, edit_secretary, delete_secretary, calendar_events
+
+urlpatterns = [
+    path('login/', custom_login_view, name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
+    path('profile/', profile_view, name='profile'),
+    path('profile/edit/', edit_profile_view, name='edit_profile'),
+    path('', index, name='dashboard'),
+    path('password_reset/', auth_views.PasswordResetView.as_view(template_name='appointment/password_reset_form.html'), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='appointment/password_reset_done.html'), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='appointment/password_reset_confirm.html'), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='appointment/password_reset_complete.html'), name='password_reset_complete'),
+    path('add_secretary/', add_secretary, name='add_secretary'),
+    path('secretaries/', secretary_list, name='secretary_list'),
+    path('secretaries/edit/<int:secretary_id>/', edit_secretary, name='edit_secretary'),
+    path('secretaries/delete/<int:secretary_id>/', delete_secretary, name='delete_secretary'),
+    path('patients/', patient_list, name='patient_list'),
+    path('patients/add/', add_patient, name='add_patient'),
+    path('patients/edit/<int:patient_id>/', edit_patient, name='edit_patient'),
+    path('patients/delete/<int:patient_id>/', delete_patient, name='delete_patient'),
+    path('examinations/', examination_list, name='examination_list'),
+    path('examinations/add/', add_examination, name='add_examination'),
+    path('examinations/edit/<int:examination_id>/', edit_examination, name='edit_examination'),
+    path('examinations/delete/<int:examination_id>/', delete_examination, name='delete_examination'),
+    path('medicines/', medicine_list, name='medicine_list'),
+    path('medicines/add/', add_medicine, name='add_medicine'),
+    path('medicines/edit/<int:medicine_id>/', edit_medicine, name='edit_medicine'),
+    path('medicines/delete/<int:medicine_id>/', delete_medicine, name='delete_medicine'),
+    path('calendar/', calendar_view, name='calendar'),
+    path('calendar-events/', calendar_events, name='calendar_events'),
+    path('calendar/block/add/', add_calendar_block, name='add_calendar_block'),
+    path('calendar/appointment/add/', add_appointment, name='add_appointment'),
+    path('appointments/', appointment_list, name='appointment_list'),
+    path('appointments/edit/<int:appointment_id>/', edit_appointment, name='edit_appointment'),
+    path('appointments/delete/<int:appointment_id>/', delete_appointment, name='delete_appointment'),
+]

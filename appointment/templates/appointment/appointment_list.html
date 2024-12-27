@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Appointments{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Appointments</h4>
+                <a href="{% url 'add_appointment' %}" class="btn btn-primary float-end">Add New Appointment</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="datatable table table-hover table-center mb-0">
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Doctor</th>
+                                <th>Date</th>
+                                <th>Notes</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for appointment in appointments %}
+                            <tr>
+                                <td>{{ appointment.patient.name }}</td>
+                                <td>{{ appointment.doctor.user.email }}</td>
+                                <td>{{ appointment.date }}</td>
+                                <td>{{ appointment.notes }}</td>
+                                <td>
+                                    <div class="actions">
+                                        <a href="{% url 'edit_appointment' appointment.id %}" class="btn btn-sm bg-success-light">
+                                            <i class="fe fe-pencil"></i> Edit
+                                        </a>
+                                        <button class="btn btn-sm bg-danger-light delete-btn"
+                                                data-id="{{ appointment.id }}"
+                                                data-name="{{ appointment.patient.name }}">
+                                            <i class="fe fe-trash"></i> Delete
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center">No appointments found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const appointmentId = this.getAttribute('data-id');
+                const patientName = this.getAttribute('data-name');
+
+                Swal.fire({
+                    title: `Are you sure?`,
+                    text: `You won't be able to revert this action for ${patientName}!`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = `/appointments/delete/${appointmentId}/`; 
+
+                        const csrfInput = document.createElement('input');
+                        csrfInput.type = 'hidden';
+                        csrfInput.name = 'csrfmiddlewaretoken';
+                        csrfInput.value = '{{ csrf_token }}';
+                        form.appendChild(csrfInput);
+
+                        document.body.appendChild(form);
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+{% endblock content %}
